@@ -3,103 +3,496 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Privacy Policy — Zeropost</title>
+<title>Zeropost — Stop Junk Mail For Good</title>
+<meta name="description" content="Scan a piece of junk mail. We file the removal. You never hear from them again.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
 *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
-:root { --sage: #5A8A72; --ink: #1A1A1A; --mid: #6B6B6B; --border: #E8E8E8; --bg: #FAFAF8; }
-body { font-family: 'DM Sans', sans-serif; background: var(--bg); color: var(--ink); -webkit-font-smoothing: antialiased; }
-nav { padding: 20px 40px; display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid var(--border); background: white; }
-.wordmark { font-weight: 600; font-size: 20px; color: var(--ink); text-decoration: none; }
+
+:root {
+  --sage:    #5A8A72;
+  --sage-lt: #EDF4F0;
+  --sage-dk: #3D6B56;
+  --ink:     #1A1A1A;
+  --mid:     #6B6B6B;
+  --soft:    #9E9E9E;
+  --border:  #E8E8E8;
+  --bg:      #FAFAF8;
+  --white:   #FFFFFF;
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'DM Sans', sans-serif;
+  background: var(--bg);
+  color: var(--ink);
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+/* NAV */
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  padding: 20px 40px;
+  display: flex; align-items: center; justify-content: space-between;
+  background: rgba(250,250,248,0.85);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(0,0,0,0.06);
+}
+.wordmark {
+  font-family: 'DM Sans', sans-serif;
+  font-weight: 600; font-size: 20px; color: var(--ink);
+  text-decoration: none; letter-spacing: -0.3px;
+}
 .wordmark span { color: var(--sage); }
-.content { max-width: 720px; margin: 0 auto; padding: 72px 24px 120px; }
-h1 { font-family: 'DM Serif Display', serif; font-size: 40px; color: var(--ink); margin-bottom: 8px; letter-spacing: -0.5px; }
-.meta { font-size: 13px; color: var(--mid); margin-bottom: 56px; }
-h2 { font-size: 18px; font-weight: 600; color: var(--ink); margin: 40px 0 12px; }
-p { font-size: 15px; color: var(--mid); line-height: 1.75; font-weight: 300; margin-bottom: 16px; }
-ul { margin: 0 0 16px 20px; }
-li { font-size: 15px; color: var(--mid); line-height: 1.75; font-weight: 300; margin-bottom: 6px; }
-a { color: var(--sage); }
-footer { padding: 32px 40px; border-top: 1px solid var(--border); display: flex; justify-content: space-between; flex-wrap: wrap; gap: 12px; }
+.nav-cta {
+  background: var(--ink); color: var(--white);
+  padding: 9px 20px; border-radius: 100px;
+  font-size: 13px; font-weight: 500;
+  text-decoration: none; letter-spacing: 0.1px;
+  transition: background 0.2s;
+}
+.nav-cta:hover { background: var(--sage); }
+
+/* HERO */
+.hero {
+  min-height: 100vh;
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  padding: 120px 24px 80px;
+  text-align: center;
+  position: relative;
+}
+
+.hero::before {
+  content: '';
+  position: absolute; inset: 0;
+  background: radial-gradient(ellipse 80% 50% at 50% 0%, rgba(90,138,114,0.08) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.eyebrow {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: var(--sage-lt); border: 1px solid rgba(90,138,114,0.2);
+  color: var(--sage-dk); padding: 6px 14px; border-radius: 100px;
+  font-size: 12px; font-weight: 500; letter-spacing: 0.3px;
+  margin-bottom: 32px;
+  animation: fadeUp 0.6s ease both;
+}
+.eyebrow::before {
+  content: '';
+  width: 6px; height: 6px; border-radius: 50%;
+  background: var(--sage); flex-shrink: 0;
+}
+
+h1 {
+  font-family: 'DM Serif Display', serif;
+  font-size: clamp(42px, 7vw, 80px);
+  line-height: 1.05;
+  letter-spacing: -1px;
+  color: var(--ink);
+  max-width: 760px;
+  margin-bottom: 24px;
+  animation: fadeUp 0.6s 0.1s ease both;
+}
+h1 em {
+  font-style: italic;
+  color: var(--sage);
+}
+
+.hero-sub {
+  font-size: clamp(16px, 2vw, 20px);
+  color: var(--mid);
+  max-width: 480px;
+  line-height: 1.6;
+  font-weight: 300;
+  margin-bottom: 40px;
+  animation: fadeUp 0.6s 0.2s ease both;
+}
+
+.hero-actions {
+  display: flex; gap: 12px; align-items: center; flex-wrap: wrap; justify-content: center;
+  animation: fadeUp 0.6s 0.3s ease both;
+}
+.btn-primary {
+  background: var(--ink); color: var(--white);
+  padding: 14px 28px; border-radius: 100px;
+  font-size: 15px; font-weight: 500;
+  text-decoration: none; letter-spacing: 0.1px;
+  transition: all 0.2s;
+  display: inline-flex; align-items: center; gap: 8px;
+}
+.btn-primary:hover { background: var(--sage); transform: translateY(-1px); }
+.btn-secondary {
+  color: var(--mid); font-size: 14px; font-weight: 400;
+  text-decoration: none; padding: 14px 4px;
+  border-bottom: 1px solid transparent;
+  transition: all 0.2s;
+}
+.btn-secondary:hover { color: var(--ink); border-bottom-color: var(--ink); }
+
+/* SOCIAL PROOF */
+.proof {
+  margin-top: 64px;
+  display: flex; align-items: center; gap: 16px;
+  animation: fadeUp 0.6s 0.4s ease both;
+}
+.proof-avatars {
+  display: flex;
+}
+.proof-avatars span {
+  width: 32px; height: 32px; border-radius: 50%;
+  border: 2px solid var(--bg);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 12px; font-weight: 600; color: white;
+  margin-left: -8px;
+}
+.proof-avatars span:first-child { margin-left: 0; }
+.proof-avatars span:nth-child(1) { background: #7BA898; }
+.proof-avatars span:nth-child(2) { background: #5A8A72; }
+.proof-avatars span:nth-child(3) { background: #3D6B56; }
+.proof-avatars span:nth-child(4) { background: #8FAF9F; }
+.proof-text { font-size: 13px; color: var(--mid); }
+.proof-text strong { color: var(--ink); font-weight: 500; }
+
+/* HOW IT WORKS */
+.section {
+  padding: 100px 24px;
+  max-width: 960px; margin: 0 auto;
+}
+.section-label {
+  font-size: 11px; font-weight: 600; letter-spacing: 1.2px;
+  text-transform: uppercase; color: var(--sage);
+  margin-bottom: 16px;
+}
+.section-title {
+  font-family: 'DM Serif Display', serif;
+  font-size: clamp(28px, 4vw, 44px);
+  line-height: 1.15; letter-spacing: -0.5px;
+  color: var(--ink); max-width: 560px;
+  margin-bottom: 60px;
+}
+
+.steps {
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 2px; background: var(--border); border-radius: 20px; overflow: hidden;
+}
+.step {
+  background: var(--white);
+  padding: 36px 32px;
+  position: relative;
+}
+.step-num {
+  font-family: 'DM Serif Display', serif;
+  font-size: 48px; color: var(--sage-lt);
+  line-height: 1; margin-bottom: 16px;
+  user-select: none;
+}
+.step h3 {
+  font-size: 17px; font-weight: 600; color: var(--ink);
+  margin-bottom: 10px; letter-spacing: -0.2px;
+}
+.step p {
+  font-size: 14px; color: var(--mid); line-height: 1.65; font-weight: 300;
+}
+
+/* FEATURES */
+.features-grid {
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 16px;
+}
+.feature-card {
+  background: var(--white); border: 1px solid var(--border);
+  border-radius: 16px; padding: 28px;
+  transition: border-color 0.2s, transform 0.2s;
+}
+.feature-card:hover { border-color: var(--sage); transform: translateY(-2px); }
+.feature-icon {
+  width: 40px; height: 40px; border-radius: 10px;
+  background: var(--sage-lt); display: flex; align-items: center;
+  justify-content: center; margin-bottom: 16px;
+}
+.feature-icon svg { width: 18px; height: 18px; stroke: var(--sage); fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+.feature-card h3 {
+  font-size: 15px; font-weight: 600; color: var(--ink);
+  margin-bottom: 8px; letter-spacing: -0.2px;
+}
+.feature-card p { font-size: 13px; color: var(--mid); line-height: 1.6; font-weight: 300; }
+
+/* VS SECTION */
+.vs-section {
+  padding: 100px 24px;
+  background: var(--ink);
+}
+.vs-inner { max-width: 960px; margin: 0 auto; }
+.vs-section .section-label { color: var(--sage); }
+.vs-section .section-title { color: var(--white); }
+
+.vs-table {
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 16px; overflow: hidden;
+}
+.vs-row {
+  display: grid; grid-template-columns: 1fr 1fr 1fr;
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+}
+.vs-row:last-child { border-bottom: none; }
+.vs-cell {
+  padding: 16px 24px;
+  font-size: 14px; color: rgba(255,255,255,0.5);
+  border-right: 1px solid rgba(255,255,255,0.06);
+  display: flex; align-items: center; gap: 8px;
+}
+.vs-cell:last-child { border-right: none; }
+.vs-row.header .vs-cell {
+  font-size: 11px; font-weight: 600; letter-spacing: 0.8px;
+  text-transform: uppercase; color: rgba(255,255,255,0.3);
+  padding: 14px 24px;
+}
+.vs-cell.yes { color: #7BC4A0; }
+.vs-cell.no  { color: rgba(255,255,255,0.2); }
+.vs-cell.zp  { color: var(--white); font-weight: 500; }
+.vs-cell.zp.yes { color: #7BC4A0; }
+.check { font-size: 16px; }
+
+/* CTA SECTION */
+.cta-section {
+  padding: 120px 24px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+.cta-section::before {
+  content: '';
+  position: absolute; inset: 0;
+  background: radial-gradient(ellipse 60% 60% at 50% 50%, rgba(90,138,114,0.1) 0%, transparent 70%);
+}
+.cta-section .section-title {
+  margin: 0 auto 16px; text-align: center; max-width: 480px;
+}
+.cta-sub {
+  font-size: 16px; color: var(--mid); margin-bottom: 40px; font-weight: 300;
+}
+.store-badge {
+  display: inline-flex; align-items: center; gap: 10px;
+  background: var(--ink); color: var(--white);
+  padding: 12px 24px; border-radius: 12px;
+  text-decoration: none; font-size: 14px; font-weight: 500;
+  transition: all 0.2s;
+}
+.store-badge:hover { background: var(--sage); transform: translateY(-2px); }
+.store-badge svg { width: 20px; height: 20px; fill: white; }
+
+/* FOOTER */
+footer {
+  padding: 40px 40px;
+  border-top: 1px solid var(--border);
+  display: flex; align-items: center; justify-content: space-between;
+  flex-wrap: wrap; gap: 16px;
+}
 .footer-links { display: flex; gap: 24px; }
-.footer-links a { font-size: 13px; color: var(--mid); text-decoration: none; }
-.footer-copy { font-size: 13px; color: var(--mid); }
+.footer-links a {
+  font-size: 13px; color: var(--soft); text-decoration: none;
+  transition: color 0.2s;
+}
+.footer-links a:hover { color: var(--ink); }
+.footer-copy { font-size: 13px; color: var(--soft); }
+
+/* ANIMATIONS */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* RESPONSIVE */
+@media (max-width: 640px) {
+  nav { padding: 16px 20px; }
+  .hero { padding: 100px 20px 60px; }
+  .section { padding: 72px 20px; }
+  .vs-cell { padding: 12px 16px; font-size: 12px; }
+  footer { padding: 32px 20px; flex-direction: column; align-items: flex-start; }
+}
 </style>
 </head>
 <body>
+
+<!-- NAV -->
 <nav>
   <a href="/" class="wordmark">Zero<span>post</span></a>
+  <a href="#download" class="nav-cta">Get the App</a>
 </nav>
-<div class="content">
-  <h1>Privacy Policy</h1>
-  <p class="meta">Last updated: January 1, 2025</p>
 
-  <p>Zeropost ("we," "us," or "our") is committed to protecting your privacy. This Privacy Policy explains how we collect, use, and safeguard your information when you use the Zeropost mobile application and website.</p>
+<!-- HERO -->
+<section class="hero">
+  <div class="eyebrow">Now available on iOS</div>
+  <h1>Stop junk mail.<br><em>For good.</em></h1>
+  <p class="hero-sub">Scan a piece of junk mail. We file the removal request. You never hear from them again.</p>
+  <div class="hero-actions">
+    <a href="#download" class="btn-primary">
+      <svg width="16" height="16" fill="white" viewBox="0 0 24 24"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
+      Download for iOS
+    </a>
+    <a href="#how-it-works" class="btn-secondary">See how it works →</a>
+  </div>
+  <div class="proof">
+    <div class="proof-avatars">
+      <span>JM</span><span>AL</span><span>SK</span><span>RT</span>
+    </div>
+    <p class="proof-text"><strong>Thousands of removals</strong> filed this month</p>
+  </div>
+</section>
 
-  <h2>1. Information We Collect</h2>
-  <ul>
-    <li><strong>Account information:</strong> Email address and name when you create an account.</li>
-    <li><strong>Mail images:</strong> Photos of mail pieces you scan. Processed by Google Cloud Vision and not stored after processing.</li>
-    <li><strong>Removal requests:</strong> Records of opt-out requests filed on your behalf.</li>
-    <li><strong>Usage data:</strong> Basic app analytics including features used and scan counts.</li>
-    <li><strong>Device information:</strong> Device type and OS version for support purposes.</li>
-  </ul>
-
-  <h2>2. How We Use Your Information</h2>
-  <ul>
-    <li>File opt-out and removal requests with senders on your behalf</li>
-    <li>Track the status of your removal requests</li>
-    <li>Send notifications about removal status updates</li>
-    <li>Provide customer support</li>
-    <li>Improve sender identification accuracy</li>
-    <li>Process subscription payments via Apple App Store</li>
-  </ul>
-
-  <h2>3. Information We Do Not Collect</h2>
-  <ul>
-    <li>Your physical mailing address (unless you choose to provide it)</li>
-    <li>Financial information (payments processed by Apple)</li>
-    <li>Location data</li>
-    <li>Contacts or other personal data from your device</li>
-  </ul>
-
-  <h2>4. How We Share Your Information</h2>
-  <ul>
-    <li><strong>Senders:</strong> We submit opt-out requests on your behalf including your name.</li>
-    <li><strong>DMA Choice:</strong> For DMA-member senders, we submit opt-out requests to the Data & Marketing Association.</li>
-    <li><strong>Google Cloud Vision:</strong> Mail images sent for text recognition. Not retained after processing.</li>
-    <li><strong>Supabase:</strong> Secure data storage. Data encrypted at rest and in transit.</li>
-    <li><strong>Resend:</strong> Used to send opt-out emails on your behalf.</li>
-  </ul>
-  <p>We do not sell, rent, or share your personal information with advertisers or third parties for marketing purposes.</p>
-
-  <h2>5. Data Retention</h2>
-  <p>We retain your account information and removal history for as long as your account is active. You may delete your account and all associated data at any time from the Account screen. Mail images are deleted immediately after processing.</p>
-
-  <h2>6. Security</h2>
-  <p>We use encrypted data transmission (TLS), encrypted data storage, and row-level security policies that ensure your data is only accessible to you.</p>
-
-  <h2>7. Children's Privacy</h2>
-  <p>The Service is not directed to children under 13. We do not knowingly collect personal information from children under 13.</p>
-
-  <h2>8. Your Rights (Texas Residents)</h2>
-  <p>Under the Texas Data Privacy and Security Act (TDPSA), Texas residents have the right to access, correct, and delete their personal data, and to opt out of the sale of personal data (we do not sell personal data).</p>
-  <p>To exercise these rights, contact us at <a href="mailto:privacy@zeropost.app">privacy@zeropost.app</a>.</p>
-
-  <h2>9. Changes to This Policy</h2>
-  <p>We may update this Privacy Policy from time to time. We will notify you of significant changes via email or in-app notification.</p>
-
-  <h2>10. Contact Us</h2>
-  <p>Zeropost · Texas, United States · <a href="mailto:privacy@zeropost.app">privacy@zeropost.app</a></p>
+<!-- HOW IT WORKS -->
+<div id="how-it-works">
+  <div class="section">
+    <p class="section-label">How it works</p>
+    <h2 class="section-title">Three steps to a quieter mailbox.</h2>
+    <div class="steps">
+      <div class="step">
+        <div class="step-num">01</div>
+        <h3>Scan the mail</h3>
+        <p>Point your camera at any piece of junk mail. Our OCR instantly identifies the sender — no typing required.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">02</div>
+        <h3>We file the removal</h3>
+        <p>We send a formal opt-out request directly to the sender using DMA, CAN-SPAM, and direct opt-out channels.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">03</div>
+        <h3>We follow up until it's done</h3>
+        <p>Most apps stop at "submitted." We track every removal and escalate automatically if mail keeps coming. We don't give up.</p>
+      </div>
+    </div>
+  </div>
 </div>
+
+<!-- FEATURES -->
+<div class="section" style="padding-top: 0;">
+  <p class="section-label">Features</p>
+  <h2 class="section-title">Built to actually work.</h2>
+  <div class="features-grid">
+
+    <div class="feature-card">
+      <div class="feature-icon">
+        <svg viewBox="0 0 24 24"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg>
+      </div>
+      <h3>Instant OCR scanning</h3>
+      <p>Google Cloud Vision reads sender details from any piece of mail in under 2 seconds.</p>
+    </div>
+
+    <div class="feature-card">
+      <div class="feature-icon">
+        <svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.41 2 2 0 0 1 3.6 1.22h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.91a16 16 0 0 0 6 6l.91-.91a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 21.73 17z"/></svg>
+      </div>
+      <h3>Filed on your behalf</h3>
+      <p>We submit formal CAN-SPAM opt-out requests so you never have to fill out another form.</p>
+    </div>
+
+    <div class="feature-card">
+      <div class="feature-icon">
+        <svg viewBox="0 0 24 24"><path d="M18 8h1a4 4 0 0 1 0 8h-1"/><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"/><line x1="6" y1="1" x2="6" y2="4"/><line x1="10" y1="1" x2="10" y2="4"/><line x1="14" y1="1" x2="14" y2="4"/></svg>
+      </div>
+      <h3>Automatic escalation</h3>
+      <p>If mail keeps coming we escalate automatically — filing stronger complaints and notifying you. We follow up until it's done.</p>
+    </div>
+
+    <div class="feature-card">
+      <div class="feature-icon">
+        <svg viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+      </div>
+      <h3>Real-time tracking</h3>
+      <p>See every removal — processing, removed, or escalated — in a clean dashboard updated live.</p>
+    </div>
+
+    <div class="feature-card">
+      <div class="feature-icon">
+        <svg viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+      </div>
+      <h3>Privacy first</h3>
+      <p>Your data is never sold. We only use your information to file removal requests on your behalf.</p>
+    </div>
+
+    <div class="feature-card">
+      <div class="feature-icon">
+        <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+      </div>
+      <h3>Set it and forget it</h3>
+      <p>Scan once, we handle everything else. No follow-up needed — we alert you only when it matters.</p>
+    </div>
+
+  </div>
+</div>
+
+<!-- VS SECTION -->
+<div class="vs-section">
+  <div class="vs-inner">
+    <p class="section-label">Why Zeropost</p>
+    <h2 class="section-title" style="color:white;">We don't stop at "submitted."</h2>
+    <div class="vs-table">
+      <div class="vs-row header">
+        <div class="vs-cell">Feature</div>
+        <div class="vs-cell">Other apps</div>
+        <div class="vs-cell">Zeropost</div>
+      </div>
+      <div class="vs-row">
+        <div class="vs-cell">Scan & identify sender</div>
+        <div class="vs-cell yes"><span class="check">✓</span> Yes</div>
+        <div class="vs-cell zp yes"><span class="check">✓</span> Yes</div>
+      </div>
+      <div class="vs-row">
+        <div class="vs-cell">DMA opt-out submission</div>
+        <div class="vs-cell yes"><span class="check">✓</span> Yes</div>
+        <div class="vs-cell zp yes"><span class="check">✓</span> Yes</div>
+      </div>
+      <div class="vs-row">
+        <div class="vs-cell">CAN-SPAM email requests</div>
+        <div class="vs-cell no">✕ No</div>
+        <div class="vs-cell zp yes"><span class="check">✓</span> Yes</div>
+      </div>
+      <div class="vs-row">
+        <div class="vs-cell">Follow-up if mail continues</div>
+        <div class="vs-cell no">✕ No</div>
+        <div class="vs-cell zp yes"><span class="check">✓</span> Yes</div>
+      </div>
+      <div class="vs-row">
+        <div class="vs-cell">Auto-escalation</div>
+        <div class="vs-cell no">✕ No</div>
+        <div class="vs-cell zp yes"><span class="check">✓</span> Yes</div>
+      </div>
+      <div class="vs-row">
+        <div class="vs-cell">Real-time status tracking</div>
+        <div class="vs-cell no">✕ No</div>
+        <div class="vs-cell zp yes"><span class="check">✓</span> Yes</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- DOWNLOAD CTA -->
+<section class="cta-section" id="download">
+  <p class="section-label" style="text-align:center;">Get started</p>
+  <h2 class="section-title">Your last piece of<br><em>junk mail.</em></h2>
+  <p class="cta-sub">3 free removals. No credit card required.</p>
+  <a href="#" class="store-badge">
+    <svg viewBox="0 0 24 24"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
+    Download on the App Store
+  </a>
+</section>
+
+<!-- FOOTER -->
 <footer>
   <a href="/" class="wordmark">Zero<span>post</span></a>
   <div class="footer-links">
     <a href="/privacy">Privacy Policy</a>
     <a href="/terms">Terms of Service</a>
+    <a href="mailto:hello@zeropost.app">Contact</a>
   </div>
   <p class="footer-copy">© 2025 Zeropost. All rights reserved.</p>
 </footer>
+
 </body>
 </html>
